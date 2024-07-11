@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Python Packaging: pyproject.toml build backends under the hood</title>
+		<title>A mysteriously distorted 3D object</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -19,97 +19,26 @@
 				<section data-markdown>
   <textarea data-template>
 
-<section data-background="pizza-boxes.jpg" />
-
-##  ![Fedora Loves Python](flp.svg)
-
+<section data-background="smooth.png" />
 ---
-```pycon
-$ sudo dnf install python3.13
-$ python3.13 -m venv venv
-$ . venv/bin/activate
-(venv) $ python
-Python 3.13.0a4 (main, Feb 16 2024, 00:00:00) [GCC 13.2.1 20231205 (Red Hat 13.2.1-6)] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> 
+<section data-background="distorted.png" />
+---
+```txt[1-3]
+3.14
+0.42
+2.666
+-0.01
+0.004
+-3.333
+0.0
+5.55
+7.25
+0.0
+4.2
+3.14
+...
 ```
 
----
-# pizza.py
-
-```python []
-"""
-Pizza module.
-"""
-```
----
-# pyproject.toml
-
-```toml []
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project]
-name = "pizza"
-version = "2024"
-```
-
----
-```pycon [1-4|5-6]
->>> import tomllib
->>> with open('pyproject.toml', 'rb') as f:
-...     pyproject = tomllib.load(f)
-... 
->>> pyproject['build-system']['requires']
-['hatchling']
->>> pyproject['build-system']['build-backend']
-'hatchling.build'
-```
-
----
-```bash
-(venv) $ pip install hatchling
-```
-
----
-```pycon [7-8]
->>> import tomllib
->>> with open('pyproject.toml', 'rb') as f:
-...     pyproject = tomllib.load(f)
-... 
->>> pyproject['build-system']['requires']
-['hatchling']
->>> pyproject['build-system']['build-backend']
-'hatchling.build'
-```
-
----
-```pycon [2-3]
->>> import importlib
->>> module_name = pyproject['build-system']['build-backend']
->>> backend = importlib.import_module(module_name)
->>> backend
-<module 'hatchling.build' from '.../site-packages/hatchling/build.py'>
-```
-
----
-```pycon [1-4|5-6|7-8]
->>> hasattr(backend, 'get_requires_for_build_wheel')
-True
->>> backend.get_requires_for_build_wheel()
-[]
->>> backend.build_wheel('.')
-'pizza-2024-py2.py3-none-any.whl'
->>> backend.build_sdist('.')
-'pizza-2024.tar.gz'
-```
-
----
-
-##  ![Fedora Loves Python](flp.svg)
-
-**fedora**loves**python**.org
 
   </textarea>
 </section>
