@@ -39,7 +39,61 @@
 ...
 ```
 
+---
+```python[1-7|6]
+from cython.cimports.libc.stdio import sscanf
 
+
+def parse_line(line: bytes) -> float:
+    cdef float flt
+    sscanf(line, b'%e', &flt)
+    return flt
+```
+
+```pycon[]
+>>> parse_line(b'3.14')
+3.140000104904175
+```
+
+---
+
+```pycon[1-4]
+>>> from PySide2 import QtWidgets
+>>> app = QtWidgets.QApplication([])
+>>> parse_line(b'3.14')
+3.0
+```
+---
+
+```pycon[1-4]
+>>> import matplotlib.pyplot as plt
+>>> plt.figure()
+>>> parse_line(b'3.14')
+3.0
+```
+---
+
+
+```pycon[1-2|3-5|6-7|8-9]
+>>> parse_line(b'3.14')
+3.140000104904175
+>>> import locale
+>>> locale.setlocale(locale.LC_ALL, '')
+'cs_CZ.utf8'
+>>> parse_line(b'3.14')
+3.0
+>>> parse_line(b'3,14')
+3.140000104904175
+```
+
+---
+<section data-background="distorted.png" />
+---
+<section data-background="zuza.jpg" />
+---
+<section data-background="kira.jpg" />
+---
+# Miro Hronočk<br>floss.social @hroncok
   </textarea>
 </section>
 			</div>
