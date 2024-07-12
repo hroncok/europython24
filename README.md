@@ -1,6 +1,6 @@
-## Prague Python Pizza 2024
+## EuroPython Prague 2024
 
-### Python Packaging: pyproject.toml build backends under the hood
+### A mysteriously distorted 3D object
 
 ...
 
